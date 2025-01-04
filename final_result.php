@@ -1,0 +1,95 @@
+<?php
+include "connect.php";
+include "useDb.php";
+
+if (!isset($_SESSION))
+{
+    session_start();
+}
+
+
+if (!isset($_SESSION["user_id"])) {
+    echo ("Musisz się zalogować");
+    header("Location: http://192.168.1.16/quizz/login.php");
+    exit;
+}
+
+if ($_SERVER["REQUEST_METHOD"] === "POST") {
+    $questions = $_POST['questions'];
+    $user_id = $_SESSION["user_id"];
+    $score = 0;
+    $level = $_SESSION['user_level'];
+    $info = "";
+    foreach ($questions as $question) {
+        $question_id = $question['id'];
+        $user_answer = $question['answer'];
+
+        // Pobranie poprawnej odpowiedzi z bazy danych
+        $sql = "SELECT correct_option FROM quiz_questions WHERE id = ?";
+        $stmt = $conn->prepare($sql);
+        $stmt->bind_param("i", $question_id);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $correct_option = $result->fetch_assoc()["correct_option"];
+
+        // Sprawdzenie odpowiedzi użytkownika
+        if (strtolower($user_answer) === $correct_option) {
+            $score++;
+        }
+    }
+
+    // Obliczenie procentowego wyniku
+    $total_questions = count($questions);
+    $percentage = round(($score / $total_questions) * 100, 2);
+    
+    //awansowanie na kolejny poziom po poprawnym wykonaniu quizu
+        if ($level < 5)
+        {
+            if ($score >= 5 )
+            {
+                $level += 1;
+                $info = "Awansowałeś na poziom: ". $level;
+            }
+            else
+            {
+                $info = "Spróbuj ponownie aby awansować" . "<p>". "wymagana liczba punktów: 5" ."</p>";
+            }
+
+        }
+        else
+        {
+            $info = "Jesteś na najwyższym poziomie: ". $level;
+        }
+        
+}
+  
+    //przesłanie danych do bazy
+    $sql_update = "UPDATE users SET final_quiz=?, level=? WHERE user_id=?";        
+    $stmt = $conn->prepare($sql_update);
+    $stmt->bind_param("iii", $score, $level, $user_id);
+    $stmt->execute();
+    
+?>
+
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="result.css">
+    <title>Wynik Quizu</title>
+</head>
+<body>
+    <div class="result-container">
+        <h1>Twój wynik</h1>
+        <p>Zdobyłeś: <span class="score"><?php echo $score; ?></span> na <span class="total"><?php echo $total_questions; ?></span></p>
+        <p>Twój wynik procentowy: <span class="percentage"><?php echo $percentage; ?>%</span></p>
+        <p>Twój poziom to: <span class="score"><?php echo $level; ?></p>
+        <p><?php echo $info ?></p>
+        </span>
+        
+
+        <a href="index.php" class="home-button">Wróć na stronę główną</a>
+    </div>
+</body>
+</html>

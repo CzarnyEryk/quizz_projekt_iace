@@ -1,0 +1,87 @@
+/* Ogólne ustawienia */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #1e1e2f;
+    color: #e5e5e5;
+    line-height: 1.6;
+}
+
+/* Kontener główny */
+#container {
+    width: 90%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+/* Górne menu */
+#top_menu {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    background-color: #2a2a3c;
+    padding: 20px 30px; /* Zwiększone odstępy */
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    margin-bottom: 20px;
+}
+
+/* Stylizacja przycisków */
+.button_top {
+    background-color: transparent; /* Tło przycisków jest przezroczyste */
+    color: #e5e5e5; /* Kolor tekstu */
+    border: none; /* Brak obramowania */
+    font-size: 20px; /* Większy rozmiar tekstu */
+    font-weight: bold; /* Wyróżniony tekst */
+    padding: 15px 30px; /* Większe odstępy wewnętrzne */
+    cursor: pointer; /* Kursor w formie ręki */
+    text-transform: uppercase; /* Wielkie litery */
+    transition: background-color 0.3s ease, color 0.3s ease, transform 0.2s ease;
+}
+
+.button_top:hover {
+    background-color: #4c8bf5; /* Kolor tła po najechaniu */
+    color: #fff; /* Kolor tekstu po najechaniu */
+    border-radius: 5px; /* Zaokrąglone rogi */
+    transform: scale(1.1); /* Powiększenie na hover */
+}
+
+.button_top:active {
+    background-color: #3a6bc9; /* Kolor tła po kliknięciu */
+    transform: scale(0.95); /* Lekko zmniejszone na kliknięcie */
+}
+
+/* Sekcja informacji */
+#information {
+    background-color: #2a2a3c;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    font-size: 16px;
+    text-align: justify;
+}
+
+/* Stylizacja linków */
+a {
+    color: #4c8bf5;
+    text-decoration: none;
+    transition: color 0.5s ease;
+}
+
+a:hover {
+    color: #72a5f9;
+}
+
+/* Responsywność */
+@media (max-width: 768px) {
+    #top_menu {
+        flex-direction: column; /* Menu w kolumnie na małych ekranach */
+    }
+
+    #top_menu p,
+    .button_top {
+        margin-bottom: 10px; /* Odstępy między elementami w pionie */
+    }
+}

@@ -1,0 +1,106 @@
+/* quizz.css */
+
+/* Ustawienia ogólne */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #1e1e2f;
+    color: #e5e5e5;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+}
+
+/* Nagłówek strony */
+h1 {
+    font-size: 32px;
+    margin-bottom: 20px;
+    color: #4c8bf5;
+    text-transform: uppercase;
+}
+
+/* Formularz quizu */
+form {
+    background-color: #2a2a3c;
+    border: 1px solid #282e37;
+    border-radius: 10px;
+    padding: 20px;
+    max-width: 600px;
+    width: 100%;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+}
+
+/* Pytanie */
+form div {
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #3a3a4c;
+}
+
+form div:last-of-type {
+    border-bottom: none;
+    margin-bottom: 0;
+}
+
+/* Tekst pytania */
+form p {
+    font-size: 18px;
+    margin-bottom: 10px;
+    color: #ffffff;
+}
+
+/* Opcje odpowiedzi */
+input[type="radio"] {
+    margin-right: 10px;
+    cursor: pointer;
+}
+
+label {
+    font-size: 16px;
+    cursor: pointer;
+}
+
+/* Przycisk zatwierdzenia */
+button[type="submit"] {
+    display: block;
+    margin: 20px auto 0;
+    background-color: #4c8bf5;
+    color: #ffffff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+button[type="submit"]:hover {
+    background-color: #72a5f9;
+    transform: translateY(-2px);
+}
+
+button[type="submit"]:active {
+    transform: translateY(0);
+}
+
+/* Responsywność */
+@media (max-width: 480px) {
+    form {
+        padding: 15px;
+    }
+
+    h1 {
+        font-size: 24px;
+    }
+
+    form p {
+        font-size: 16px;
+    }
+
+    button[type="submit"] {
+        font-size: 14px;
+    }
+}
