@@ -77,7 +77,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         <p>Twój poziom to: <span class="score"><?php echo $level; ?></span></p>
 
         <a href="index.php" class="home-button">Wróć na stronę główną</a>
-        <a href="mainquizz.php" class="home-button">Następny Poziom</a>
+        <a href="mainquiz.php" class="home-button">Następny Poziom</a>
     </div>
 </body>
 </html>
