@@ -18,12 +18,12 @@
         if($odpowiedz->num_rows == 1)
         {
             $row = $odpowiedz->fetch_assoc();
-             //Pobranie z bazy danych id
+             //Pobranie z bazy danych informacji 
              $_SESSION["user_level"] = $row["level"];
              $_SESSION["user_name"] = $row["name"];
+             $_SESSION['user_surname'] = $row['surname'];
              $_SESSION["final_score"] = $row["final_quiz"];
              $_SESSION['last_score'] = $row['score'];
-             //Pobranie roli z bazy danych
         
         }   
     };

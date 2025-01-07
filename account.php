@@ -1,6 +1,8 @@
 <?php
 include "useDb.php";
 include "connect.php";
+
+//sprawdzenie czy sesja istnieje
 if (!isset($_SESSION))
 {
     session_start();
@@ -8,38 +10,30 @@ if (!isset($_SESSION))
 
 // Sprawdzenie, czy użytkownik jest zalogowany
 if (!isset($_SESSION["user_id"])) {
-    echo ("Musisz się zalogować");
     header("Location: http://192.168.1.16/quizz/login.php");
     exit;
 }
 
-function debug_to_console($data) {
-    $output = $data;
-    if (is_array($output))
-        $output = implode(',', $output);
 
-    echo "<script>console.log('Debug Objects: " . $output . "' );</script>";
-}
-// Załadowanie danych użytkownika
-// $user_name = $_SESSION["user_name"] ?? "Nieznane imię";
-// $user_level = $_SESSION["user_level"] ?? "Brak poziomu";
-// $final_score = $_SESSION["final_score"] ?? -1;
+// Załadowanie danych użytkownika z bazy (odśwież)
 getDb($_SESSION["user_id"]);
 
+//przypisane danych z sesji do zmiennych (łatwiejsza obsługa)
 $final_score = $_SESSION["final_score"];
 $user_name = $_SESSION["user_name"];
+$user_surname = $_SESSION["user_surname"];
 $user_level = $_SESSION["user_level"];
+$_SESSION['alert_raport'] = -1;
 
 
-if ($final_score == 0)
+//sprawdzenie czy użytkownik wykonał test końcowy i przypisanie danych
+if ($final_score == -1)
 {
     $final_score = $_SESSION["last_score"];
 }
 
-
-debug_to_console($final_score);
-
 ?>
+
 
 <!DOCTYPE html>
 <html lang="pl">
@@ -51,12 +45,19 @@ debug_to_console($final_score);
 </head>
 <body>
     <div class="container">
+    
+        <!-- Wyświetlenie imienia użytkownika -->
         <h1>Witaj, <?php echo htmlspecialchars($user_name); ?>!</h1>
+        <!-- Wyświetlenie danych o użytkowniku -->
         <div class="profile-info">
             <table>
                 <tr>
                     <th>Imię</th>
                     <td><?php echo htmlspecialchars($user_name); ?></td>
+                </tr>
+                <tr>
+                <th>Nazwisko</th>
+                <td><?php echo htmlspecialchars($user_surname); ?></td>
                 </tr>
                 <tr>
                     <th>Poziom</th>

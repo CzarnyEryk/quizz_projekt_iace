@@ -2,24 +2,29 @@
 include "connect.php";
 include "useDb.php";
 
+//sprawdzenie czy jest ustawiona sesja
 if (!isset($_SESSION))
 {
     session_start();
 }
 
-
+//sprawdzenie czy użytkownik jest zalogowany w celu pokazania zasobów
 if (!isset($_SESSION["user_id"])) {
-    echo ("Musisz się zalogować");
     header("Location: http://192.168.1.16/quizz/login.php");
     exit;
 }
 
+//odebranie danych z formularza po wykonaniu testu
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
+    //przypisanie danych do zmiennych
     $questions = $_POST['questions'];
     $user_id = $_SESSION["user_id"];
-    $score = 0;
     $level = $_SESSION['user_level'];
+    //wyzerowanie punktów użytkownika
+    $score = 0;
+    //przygotwanie informacji dla użytkownika
     $info = "";
+    //pętla do sprawdzenia czy odpowiedź jest poprawna
     foreach ($questions as $question) {
         $question_id = $question['id'];
         $user_answer = $question['answer'];
@@ -34,6 +39,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
         // Sprawdzenie odpowiedzi użytkownika
         if (strtolower($user_answer) === $correct_option) {
+            //dodanie punktów jeżeli odpowiedź jest poprawna
             $score++;
         }
     }
@@ -43,25 +49,31 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $percentage = round(($score / $total_questions) * 100, 2);
     
     //awansowanie na kolejny poziom po poprawnym wykonaniu quizu
-        if ($level < 5)
+    //sprawdzenie czy użytkownik podał więcej niż 5 poprawnych odpowiedzi    
+    if ($score >= 5 )
+    {
+        //awansowanie na kolejny poziom :)
+        if ($level < 3)
         {
-            if ($score >= 5 )
-            {
-                $level += 1;
-                $info = "Awansowałeś na poziom: ". $level;
-            }
-            else
-            {
-                $info = "Spróbuj ponownie aby awansować" . "<p>". "wymagana liczba punktów: 5" ."</p>";
-            }
-
+            $level += 1;
+            $info = "Awansowałeś na poziom: ". $level;
         }
-        else
+        elseif ($level == 3)
         {
             $info = "Jesteś na najwyższym poziomie: ". $level;
         }
+                
+    }
+    //jeżeli użytkownik podał mniej niż 5 puntków poniósł porażkę :(
+    else
+        {
+            $info = "Spróbuj ponownie aby awansować" . "<p>". "wymagana liczba punktów: 5" ."</p>";
+        }
+
+        }
         
-}
+        
+
   
     //przesłanie danych do bazy
     $sql_update = "UPDATE users SET final_quiz=?, level=? WHERE user_id=?";        

@@ -1,3 +1,4 @@
+<!-- Plik do połączenia z bazą danych -->
 <?php
   if (!isset($_SESSION))
   {
@@ -12,9 +13,9 @@ $dbname = "quizz";
 
 //utworzenie połączenia
 $conn = mysqli_connect($dbhost, $dbuser, $dbpass, $dbname);
-$_SESSION["db"] = $conn;
-$_SESSION['alert'] = -1;
 
+//przekazanie połączenia z bazą danych do sesji
+$_SESSION["db"] = $conn;
 // Sprawdź połączenie
 if (!$conn) {
     die("Connection failed: " . mysqli_connect_error());

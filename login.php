@@ -1,18 +1,18 @@
 <!-- Plik służacy do możliwości logowania się i zapisania danych w sesji -->
 <!--  -->
 <?php
-    //dodanie pliku do obsługi połączenia z bazą danych
-
-    //obsługa błędów
     try 
     {
         include "connect.php";
-        //przejęcie sesji
+        
+        //przejęcie sesji jeżeli jej nie ma 
         if (!isset($_SESSION))
         {
             session_start();
         }
+        //przygotowanie informacji dla użytkownika
         $message = "";
+        //odebranie danych z formularza logowania
         if ($_SERVER["REQUEST_METHOD"] == "POST") 
         {
             //pobranie e-mail oraz hasła z formularza
@@ -22,6 +22,7 @@
             //jeżeli użytkownik podał e_mail oraz hasło
             if ($e_mail && $password)
             {
+                //utowrzenia hasha sha256 w celu weryfikacji hasła w bazie danych
                 $hash_password = hash("sha256", $password);
                 //przygotowanie zapytania 
                 
@@ -30,6 +31,7 @@
                 $stmt = $conn->prepare($sql);
                 $stmt->bind_param("ss", $e_mail, $hash_password);
                 $stmt->execute();
+
                 //obsługa zapytania mysql
                 $odpowiedz = $stmt->get_result();
 
@@ -50,10 +52,12 @@
                     //zakończ połączenie
                     $conn->close();
                     
+                    //jeżeli użytkownik nie wykonał testu sprawdzającego niech wykona !!!
                     if ($_SESSION["user_level"] == 0)
                     {
                         header("Location: http://192.168.1.16/quizz/first_quizz.php");
                     }
+                    //wyświetlenie strony głównej dla użytkowników po teście sprawdzającym
                     else
                     {
                         header("Location: http://192.168.1.16/quizz/index.php");

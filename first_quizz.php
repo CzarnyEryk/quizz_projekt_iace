@@ -1,6 +1,7 @@
 <?php
 // Dodanie pliku do obsługi połączenia z bazą danych
 include "connect.php";
+//sprawdzenie czy sesja istnieje
 if (!isset($_SESSION))
   {
       session_start();
@@ -8,14 +9,15 @@ if (!isset($_SESSION))
 
 // Sprawdzenie, czy użytkownik jest zalogowany
 if (!isset($_SESSION["user_id"])) {
-    echo ("Musisz się zalogować");
     header("Location: http://192.168.1.16/quizz/login.php");
     exit;
 }
 
+//określenie kategorii pytań
 $basic_cat = "basic";
 $medium_cat = "medium";
 $advanced_cat = "advanced";
+//przypisanie id użytkownika do zmiennej
 $user_id = $_SESSION["user_id"];
 
 // Funkcja losowania pytań
@@ -29,9 +31,13 @@ function getQuestions($conn, $category, $limit) {
 }
 
 // Losowanie pytań oraz ich połączenie
+// 2 pytania łatwe
 $pytaniaLatwe = getQuestions($conn, $basic_cat, 2);
+// 2 pytania średnie
 $pytaniaSrednie = getQuestions($conn, $medium_cat, 2);
+// 2 pytania trudne
 $pytaniaTrudne = getQuestions($conn, $advanced_cat, 1);
+//połączenie pytań w jedną listę
 $pytania = array_merge($pytaniaLatwe, $pytaniaSrednie, $pytaniaTrudne);
 
 ?>

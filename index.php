@@ -1,24 +1,48 @@
 <?php
     //uruchomienie sesji
-    session_start();
+    include "useDb.php";
 
     //sprawdzenie czy użytkownik jest zalogowany
     if ( !isset($_SESSION["user_id"]))
     {
-        echo ("Musisz się zalogować");
         header("Location: http://192.168.1.16/quizz/login.php");
     }
 
+    //zainicjowanie zmiennych jeżeli nie są przypisane przez sesję 
+    if ( !isset($_SESSION["alert_raport"]))
+    {
+        $_SESSION["alert_raport"] = -1;
+    }
+
+    if ( !isset($_SESSION["alert"]))
+    {
+        $_SESSION["alert"] = -1;
+    }
+
+
+    getDb($_SESSION['user_id']);
+
+    //jeżeli użytkownik nie wykonał quizu sprawdzającego niech wykona !!!
     if ( $_SESSION['user_level'] == 0)
     {
         header("Location: http://192.168.1.16/quizz/first_quizz.php");
     }
 
+    //jeżeli użytkownik ma maksymalny poziom poinformuj go plik 
     if ( $_SESSION['alert'] == 1)
     {
         echo '<script>alert("Masz maksymalny poziom")</script>';
-        $_SESSION['alert'] == 0;
+        $_SESSION['alert'] = 0;
     }
+    
+    //jeżeli użytkownik chce wygenerować raport ale nie ma zrobionego testu finalnego niech zrobi !!!
+    if ( $_SESSION['alert_raport'] == 1)
+    {
+        $_SESSION['alert_raport'] = -1;
+        echo '<script>alert("Musisz wykonać test")</script>';
+    }
+
+
 ?>
 
 <!DOCTYPE html>
@@ -36,7 +60,7 @@
     <button class="button_top" onclick="window.location.href='http://192.168.1.16/quizz/mainquiz.php'">QUIZY</button>
     <button class="button_top" onclick="window.location.href='http://192.168.1.16/quizz/account.php'">KONTO</button>
     <button class="button_top" onclick="window.location.href='http://192.168.1.16/quizz/logout.php'">WYLOGUJ</button>
-    <p><?php echo ("Witaj: " . $_SESSION["user_name"]); ?></p>
+    <p id="top_info"><?php echo ("Witaj: " . $_SESSION["user_name"]); ?></p>
     <div style="clear:both"></div>
 </div>
 
@@ -61,7 +85,7 @@
             <bold>Wyzwania i przyszłość</bold>
             Zagrożenia w świecie cyfrowym nieustannie ewoluują. Codziennie powstają nowe metody ataków, dlatego istotne jest, aby być na bieżąco z najlepszymi praktykami i technologiami zabezpieczeń. Edukacja w zakresie cyberhigieny, regularne aktualizacje systemów oraz stosowanie silnych haseł to kroki, które każdy z nas może podjąć, aby zwiększyć swoje bezpieczeństwo.
 
-            
+            <p><i>"Cyberbezpieczeństwo to nie stan, lecz proces — ciągła walka z tym, co niewidoczne, aby chronić to, co najcenniejsze."</i></p>
 
         </div>
 

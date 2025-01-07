@@ -1,16 +1,19 @@
 <?php
 include "connect.php";
+//przechwycenie sesji jeżeli nie istnieje
 if (!isset($_SESSION))
   {
       session_start();
   }
 
+//sprawdzene czy użytkownik jest zalogowany
 if (!isset($_SESSION["user_id"])) {
     echo ("Musisz się zalogować");
     header("Location: http://192.168.1.16/quizz/login.php");
     exit;
 }
 
+//sprawdzenie przesłania danych
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $questions = $_POST['questions'];
     $user_id = $_SESSION["user_id"];
@@ -38,6 +41,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $total_questions = count($questions);
     $percentage = round(($score / $total_questions) * 100, 2);
     
+    //ustalenie poziomu użytkownika
     if ($score <=2 )
     {
         $level = 1;
@@ -51,6 +55,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         $level = 3;
     }
 
+    //przypisanie poziomu do sesji 
     $_SESSION["user_level"] = $level;
     //przesłanie danych do bazy
     $sql_update = "UPDATE users SET score=?, level=? WHERE user_id=?";        

@@ -3,6 +3,7 @@
 include "connect.php";
 include "useDb.php";
 
+//przechywcenie sesji jeżeli nie istnieje :( 
 if (!isset($_SESSION))
 {
     session_start();
@@ -15,24 +16,19 @@ if (!isset($_SESSION["user_id"])) {
     exit;
 }
 
-function alert_window($data) {
-    $output = $data;
-    if (is_array($output))
-        $output = implode(',', $output);
 
-    echo "<script>window.alert($output);</script>";
-}
 
+//ustalenie kategorii pytań
 $basic_cat = "basic";
 $medium_cat = "medium";
 $advanced_cat = "advanced";
 $user_id = $_SESSION["user_id"];
 
+//pobranie aktualnych danych z bazy
 getDb($user_id);
 
-$level = $_SESSION["user_level"];
-
-if ($level == 3)
+//jeżeli użytkownik jest na max poziomie i ma max ilość punktów zwróć informację
+if ($_SESSION["user_level"] == 3 and $_SESSION["final_score"] == 10)
 {
     $_SESSION['alert'] = 1;
     header("Location: http://192.168.1.16/quizz/index.php");
@@ -48,7 +44,7 @@ function getQuestions($conn, $category) {
     return $result->fetch_all(MYSQLI_ASSOC);
 }
 
-// Losowanie pytań oraz ich połączenie
+// Losowanie pytań zgodnie z kategorią po wykonaniu testu sprawdzającego
 
 if ($_SESSION["user_level"] == 1)
 {

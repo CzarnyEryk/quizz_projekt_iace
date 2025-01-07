@@ -28,6 +28,12 @@ body {
     margin-bottom: 20px;
 }
 
+#top_info
+{
+    font-size: 20px;
+    font-weight: bold;
+}
+
 /* Stylizacja przycisków */
 .button_top {
     background-color: transparent; /* Tło przycisków jest przezroczyste */
