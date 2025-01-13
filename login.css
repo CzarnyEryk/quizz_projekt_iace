@@ -108,3 +108,12 @@ input[type="submit"]:active {
 #info{
     color: red;
 }
+
+/* Styl dla logo */
+.logo {
+    display: block;
+    margin: 0 auto 20px;
+    width: 300px; /* Dostosuj rozmiar logo */
+    height: auto;
+    border-radius: 10px; /* Opcjonalne zaokrąglenie rogów */
+}

@@ -14,6 +14,13 @@ if (!isset($_SESSION["user_id"])) {
     exit;
 }
 
+  //sprawdzenie czy admin
+  if ($_SESSION["is_admin"] == 1)
+  {
+  header("Location: http://192.168.1.16/quizz/admin.php");
+  }
+
+
 
 // Załadowanie danych użytkownika z bazy (odśwież)
 getDb($_SESSION["user_id"]);
@@ -45,7 +52,7 @@ if ($final_score == -1)
 </head>
 <body>
     <div class="container">
-    
+    <img src="logo.png" alt="Logo Quizu" class="quiz-logo">
         <!-- Wyświetlenie imienia użytkownika -->
         <h1>Witaj, <?php echo htmlspecialchars($user_name); ?>!</h1>
         <!-- Wyświetlenie danych o użytkowniku -->
@@ -74,6 +81,9 @@ if ($final_score == -1)
             <a href="make_raport.php" class="btn">Raport</a>
             <a href="index.php" class="btn secondary">HOME</a>
         </div>
+       
     </div>
+   
+    
 </body>
 </html>

@@ -8,6 +8,12 @@
         header("Location: http://192.168.1.16/quizz/login.php");
     }
 
+    //sprawdzenie czy admin
+    if ($_SESSION["is_admin"] == 1)
+    {
+    header("Location: http://192.168.1.16/quizz/admin.php");
+    }
+
     //zainicjowanie zmiennych jeżeli nie są przypisane przez sesję 
     if ( !isset($_SESSION["alert_raport"]))
     {
@@ -88,8 +94,9 @@
             <p><i>"Cyberbezpieczeństwo to nie stan, lecz proces — ciągła walka z tym, co niewidoczne, aby chronić to, co najcenniejsze."</i></p>
 
         </div>
-
-            
+        <p>
+            <img src="logo.png" alt="Logo Quizu" class="quiz-logo">
+        </p>
             
         </div>
     </body>

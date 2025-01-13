@@ -13,6 +13,13 @@ if (!isset($_SESSION["user_id"])) {
     exit;
 }
 
+  //sprawdzenie czy admin
+  if ($_SESSION["is_admin"] == 1)
+  {
+  header("Location: http://192.168.1.16/quizz/admin.php");
+  }
+
+
 //sprawdzenie przesłania danych
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $questions = $_POST['questions'];

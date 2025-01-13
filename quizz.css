@@ -104,3 +104,42 @@ button[type="submit"]:active {
         font-size: 14px;
     }
 }
+
+/* Informacje o quizie */
+.quiz-info {
+    background-color: #2a2a3c;
+    border: 1px solid #3a3a4c;
+    border-radius: 10px;
+    padding: 20px;
+    margin-bottom: 20px;
+    text-align: center;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+}
+
+.quiz-info h2 {
+    font-size: 24px;
+    color: #4c8bf5;
+    margin-bottom: 10px;
+    text-transform: uppercase;
+}
+
+.quiz-info p {
+    font-size: 16px;
+    color: #e5e5e5;
+    margin-bottom: 10px;
+    line-height: 1.5;
+}
+
+.quiz-info strong {
+    color: #ff4c4c; /* Podkreślenie ważnych informacji w czerwonym kolorze */
+}
+
+/* Logo quizu */
+.quiz-logo {
+    max-width: 250px;
+    margin-bottom: 20px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+

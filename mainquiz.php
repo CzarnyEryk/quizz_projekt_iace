@@ -16,6 +16,13 @@ if (!isset($_SESSION["user_id"])) {
     exit;
 }
 
+  //sprawdzenie czy admin
+  if ($_SESSION["is_admin"] == 1)
+  {
+  header("Location: http://192.168.1.16/quizz/admin.php");
+  }
+
+
 
 
 //ustalenie kategorii pytań
@@ -85,6 +92,8 @@ elseif ($_SESSION["user_level"] == 3)
             <?php endforeach; ?>
             <button type="submit">Zatwierdź odpowiedzi</button>
         </form>
+
+        <img src="logo.png" alt="Logo Quizu" class="quiz-logo">
     </body>
 </html>
 

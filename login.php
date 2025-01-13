@@ -45,6 +45,8 @@
                     $_SESSION["user_id"] = $row["user_id"]; 
                     $_SESSION["user_level"] = $row["level"];
                     $_SESSION["user_name"] = $row["name"];
+                    $_SESSION["is_admin"] = $row["is_admin"];
+                    $_SESSION["dzial"] =  $row["departament"]; 
                     $_SESSION["final_score"] = $row["final_quiz"];
                     $_SESSION['last_score'] = $row['score'];
                     //Pobranie roli z bazy danych
@@ -100,6 +102,9 @@
 <body>
     <div class="login-container">
         <div class="login-box">
+            <!-- Dodanie obrazu logo -->
+            <img src="logo.png" alt="Logo CyberSecurity Quiz" class="logo">
+            
             <h1>CyberSecurity Quiz</h1>
             <p>Zaloguj się, aby kontynuować</p>
             <form method="POST" action="login.php">
@@ -117,3 +122,4 @@
 </body>
 
 </html>
+

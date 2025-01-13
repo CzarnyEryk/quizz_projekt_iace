@@ -14,6 +14,11 @@ if (!isset($_SESSION["user_id"])) {
     exit;
 }
 
+if ($_SESSION["is_admin"] == 1)
+{
+    header("Location: http://192.168.1.16/quizz/admin.php");
+}
+
 //odebranie danych z formularza po wykonaniu testu
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
     //przypisanie danych do zmiennych

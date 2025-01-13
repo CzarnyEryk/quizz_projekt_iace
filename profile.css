@@ -73,3 +73,13 @@ th {
 .btn.secondary:hover {
     background-color: #ff7373;
 }
+
+/* Logo quizu */
+.quiz-logo {
+    max-width: 250px;
+    margin-bottom: 20px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+

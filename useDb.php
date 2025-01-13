@@ -23,6 +23,8 @@
              $_SESSION["user_name"] = $row["name"];
              $_SESSION['user_surname'] = $row['surname'];
              $_SESSION["final_score"] = $row["final_quiz"];
+             $_SESSION["is_admin"] = $row["is_admin"];
+             $_SESSION["dzial"] =  $row["departament"]; 
              $_SESSION['last_score'] = $row['score'];
         
         }   

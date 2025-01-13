@@ -13,6 +13,11 @@ if (!isset($_SESSION["user_id"])) {
     exit;
 }
 
+if ($_SESSION["is_admin"] == 1)
+{
+    header("Location: http://192.168.1.16/quizz/admin.php");
+}
+
 //określenie kategorii pytań
 $basic_cat = "basic";
 $medium_cat = "medium";
@@ -51,6 +56,18 @@ $pytania = array_merge($pytaniaLatwe, $pytaniaSrednie, $pytaniaTrudne);
     </head>
     <body>
         <h1>Quiz</h1>
+        <div class="quiz-info">
+            <h2>Witaj w quizie wstępnym!</h2>
+                <p>
+                    Niniejszy test poziomujący pozwoli nam ocenić Twoją obecną wiedzę. 
+                    Prosimy o wypełnienie quizu zgodnie z posiadaną wiedzą. 
+                    <strong>Uwaga:</strong> Ten test można wykonać tylko raz!
+                </p>
+            <p>
+                Po zakończeniu otrzymasz dostęp do właściwego testu. Powodzenia!
+            </p>
+</div>
+
         <form action="result_quizz.php" method="POST">
             <?php foreach ($pytania as $index => $pytanie): ?>
                 <div>
@@ -64,6 +81,8 @@ $pytania = array_merge($pytaniaLatwe, $pytaniaSrednie, $pytaniaTrudne);
             <?php endforeach; ?>
             <button type="submit">Zatwierdź odpowiedzi</button>
         </form>
+
+        <img src="logo.png" alt="Logo Quizu" class="quiz-logo">
     </body>
 </html>
 
